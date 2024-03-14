@@ -2,10 +2,10 @@
 
 ## 💬 Table of Contents
 - [🚀 Acerca de mí.](#🚀-acerca-de-mí)
-- [⚔️ Objetivos.](#⚔️objetivo-¿a-qué-apunta-el-proyecto)
-- [🧠 Justificación.](#🧠justificacióm-¿por-qué-éste-proyecto)
-- [⛏️ Herrmientas.](#⛏️herramientas)
-- [🐾 Paso a paso](#🐾paso-a-paso)
+- [⚔️ Objetivos.](#⚔️-objetivo-¿a-qué-apunta-el-proyecto)
+- [🧠 Justificación.](#🧠-justificacióm-¿por-qué-éste-proyecto)
+- [⛏️ Herrmientas.](#⛏️-herramientas)
+- [🐾 Paso a paso](#🐾-paso-a-paso)
 
 
 ## 🚀 Acerca de mí
@@ -107,5 +107,5 @@ Existe una alta demanda de herramientas que ayuden a los comerciantes y analista
 </tbody>
 </table>
 
-## 🐾Paso a Paso:
+## 🐾 Paso a Paso:
 Para ver los avances del proyecto puedes pasarte por mi [`TODO.md`](TODO.md)
