@@ -1,11 +1,11 @@
 # 📋Market Analysis Tool
 
 ## 💬 Table of Contents
-- [🚀 Acerca de mí.](#🚀-acerca-de-mí)
-- [⚔️ Objetivos.](#⚔️-objetivo-¿a-qué-apunta-el-proyecto)
-- [🧠 Justificación.](#🧠-justificacióm-¿por-qué-éste-proyecto)
-- [⛏️ Herrmientas.](#⛏️-herramientas)
-- [🐾 Paso a paso](#🐾-paso-a-paso)
+- [🚀 Acerca de mí.](#-acerca-de-mí)
+- [⚔️ Objetivos.](#%EF%B8%8F-objetivo-a-qué-apunta-el-proyecto)
+- [🧠 Justificación.](#-justificacióm-por-qué-éste-proyecto)
+- [⛏️ Herrmientas.](#%EF%B8%8F-herramientas)
+- [🐾 Paso a paso](#-paso-a-paso)
 
 
 ## 🚀 Acerca de mí
