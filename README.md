@@ -28,6 +28,8 @@ He tenido la oportunidad de aprender mucho en mi camino, de tal manera que he ah
 
 ## ⚔️ Objetivo: ¿A qué apunta el proyecto?
 Una aplicación que utiliza datos históricos y en tiempo real para realizar análisis de mercado, incluyendo tendencias de precios, volumen de ventas y comportamiento del consumidor, esto con el fin de apoyar a una toma de decisiones mucho más asertiva en un mercado tan dinámico y cambiante.
+
+***Ésta aplicación se enfocará en el mercado de venta minorista de productos y servicios.*** 
 <p align="center">
     <a href="https://images.ctfassets.net/mmu68mmhtb17/GLo0E4fLQk7mOvm5ko4MI/97d91e16b4b529d12c39e7f32e556028/market-analysis-template.png?w=1395&h=578&q=80&fm=png">
         <img src="https://images.ctfassets.net/mmu68mmhtb17/GLo0E4fLQk7mOvm5ko4MI/97d91e16b4b529d12c39e7f32e556028/market-analysis-template.png?w=1395&h=578&q=80&fm=png" width="700"/>
@@ -57,7 +59,7 @@ Una aplicación que utiliza datos históricos y en tiempo real para realizar an�
 </blockquote>
 
 
-## 🧠 Justificacióm: ¿Por qué éste proyecto?
+## 🧠 Justificación: ¿Por qué éste proyecto?
 Existe una alta demanda de herramientas que ayuden a los comerciantes y analistas a tomar decisiones informadas basadas en datos del mercado actual. La toma de decisiones resulta vital para el crecimiento de una empresa, por lo tanto, dar la respuesta a éstas preguntas es imperativo: 
 - <em><b>Tendencias de precios:</b></em> ¿Cuáles son las tendencias actuales de precios para los productos o servicios en el mercado? ¿Han aumentado o disminuido los precios en un período de tiempo específico?
 
