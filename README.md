@@ -1,12 +1,89 @@
-# 📋Market Analysis Tool
+# 🦉Earny: Visibilidad para tu negocio.
 
 ## 💬 Table of Contents
-- [🚀 Acerca de mí.](#-acerca-de-mí)
 - [⚔️ Objetivos.](#%EF%B8%8F-objetivo-a-qué-apunta-el-proyecto)
 - [🧠 Justificación.](#-justificacióm-por-qué-éste-proyecto)
 - [⛏️ Herrmientas.](#%EF%B8%8F-herramientas)
 - [🐾 Paso a paso.](#-paso-a-paso)
+- [🚀 Acerca de mí.](#-acerca-de-mí)
 
+
+
+
+## ⚔️ Objetivo: ¿A qué apunta el proyecto?
+Esta aplicación está destinada para que los negocios de comidas o productos - especialmente aquellos que se alojan en la Universidad - puedan interactuar con sus clientes de una manera mucho más sencilla y mediante el uso de tecnologías para el tratamiento de datos estadísticos y geoespaciales.
+
+
+<p align="center">
+    <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.lavanguardia.com%2Fandro4all%2Faplicaciones%2Faplicaciones-para-rastrear-y-localizar-a-nuestros-hijos&psig=AOvVaw0B0ryTjVF8L-UWB8mBCd2D&ust=1710948908650000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCODH5cDTgIUDFQAAAAAdAAAAABAf">
+        <img src="https://www.lavanguardia.com/andro4all/hero/2021/04/Mejores-7-aplicaciones-para-rastrear-y-localizar-a-nuestros-hijos-descargalas-gratis-en-Google-Play.jpg?width=1200&aspect_ratio=16:9" width="700"/>
+    </a>
+</p>
+<p align="center">
+    <a href="https://b2field.com/wp-content/uploads/2022/02/preview-x2-720.png">
+        <img src="https://b2field.com/wp-content/uploads/2022/02/preview-x2-720.png" width="400"/>
+    </a>
+</p>
+
+<img src="https://static.vecteezy.com/system/resources/previews/022/841/114/original/chatgpt-logo-transparent-background-free-png.png" width="30"/> <span><b><em>ChatGPT</em></b></span>
+
+<blockquote>
+Para desarrollar una aplicación que permita llevar la gestión de un negocio informal y que además tenga funcionalidades como la visualización en tiempo real de la ubicación, el control de inventario de productos y la capacidad de realizar compras, deberías incluir los siguientes componentes:
+
+<ol>
+    <li><b>Inicio de sesión y autenticación:</b> Un sistema de inicio de sesión seguro para que los usuarios puedan acceder a la aplicación con credenciales únicas.</li>
+    <li><b>Perfil del negocio:</b> Donde se puedan registrar los detalles del negocio como nombre, dirección, información de contacto, entre otros.</li>
+    <li><b>Gestión de productos:</b> Una sección donde se puedan agregar, editar y eliminar productos del inventario, así como gestionar su cantidad disponible en stock.</li>
+    <li><b>Gestión de ventas:</b> Un sistema que permita registrar las ventas realizadas, indicando los productos vendidos, la cantidad, el precio, el cliente (si aplica) y el método de pago.</li>
+    <li><b>Seguimiento de ubicación:</b> Integración con servicios de geolocalización para que se pueda visualizar la ubicación del negocio en tiempo real, esto puede ser útil para la entrega de productos o para que los clientes encuentren el establecimiento fácilmente.</li>
+    <li><b>Sistema de pedidos/compras:</b> Una funcionalidad que permita a los usuarios realizar pedidos o compras a través de la aplicación, indicando qué productos desean adquirir y en qué cantidad.</li>
+    <li><b>Notificaciones:</b> La capacidad de enviar notificaciones tanto a los usuarios como a los administradores del negocio, por ejemplo, para informar sobre nuevos pedidos, actualizaciones de inventario o cambios en el estado de una compra.</li>
+    <li><b>Panel de administración:</b> Una interfaz para que los propietarios del negocio puedan gestionar todos los aspectos de la aplicación, como ver informes de ventas, actualizar el inventario, revisar pedidos pendientes, entre otros.</li>
+    <li><b>Métodos de pago:</b> Integración con diferentes métodos de pago para que los clientes puedan realizar transacciones de forma segura, como tarjetas de crédito, transferencias bancarias o pagos en efectivo en el momento de la entrega.</li>
+    <li><b>Seguridad:</b> Implementación de medidas de seguridad robustas para proteger los datos sensibles de los usuarios y del negocio, como encriptación de datos, protocolos de autenticación seguros y medidas contra posibles ataques cibernéticos.</li>
+    <li><b>Interfaz de usuario intuitiva:</b> Es fundamental que la aplicación tenga una interfaz de usuario fácil de usar y atractiva, que permita a los usuarios navegar por las diferentes funcionalidades de manera intuitiva y sin complicaciones.</li>
+    <li><b>Soporte técnico y actualizaciones:</b> Ofrecer soporte técnico para ayudar a los usuarios en caso de problemas o dudas, además de garantizar actualizaciones periódicas para mejorar la aplicación y corregir posibles errores o vulnerabilidades de seguridad.</li>
+</ol>
+</blockquote>
+
+
+## 🧠 Justificación: ¿Por qué éste proyecto?
+El propósito de éste proyecto es enriquecer aún más la vida universitaria - y de ser posible expandir el proyecto a un nivel local en Medellín - a través de un sistema de ventas e inventario ágil, informal y rápido. Dónde una venta pueda ser concretada y llevada a cabo rápidamente.
+
+## ⛏️ Herramientas
+<table width="700" align="center">
+    <thead>
+        <tr>
+            <th>Librería📚</th>
+            <th>Uso⚙️</th>
+        </tr>
+    </thead>
+<tbody>
+    <tr>
+        <td><a href="https://pandas.pydata.org/"><img src="https://pandas.pydata.org/static/img/pandas_white.svg" width="130" /></a></td>
+        <td><em><b>Pandas:</b></em> Para manipular y analizar datos estructurados, como series temporales de precios.</td>
+    </tr>
+    <tr>
+        <td><a href="https://numpy.org/"><img src="https://numpy.org/images/logo.svg" width="60px" /></a></td>
+        <td><em><b>Numpy:</b></em> Para realizar cálculos numéricos eficientes en grandes conjuntos de datos de inventario, pedidos o ventas.</td>
+    </tr>
+    <tr>
+        <td><a href="https://matplotlib.org/"><img src="https://matplotlib.org/_static/logo_dark.svg" width="150" /></a></td>
+        <td><em><b>Matplotlib: </b></em>Para visualizar gráficos que representen tendencias y patrones en los datos del negocio.</td>
+    </tr>
+    <tr>
+        <td>  <a href="https://scipy.org/"><img src="https://scipy.org/images/logo.svg" width="60"/></a></td>
+        <td><em><b>Scipy:</b></em> Para análisis estadísticos avanzados y modelado predictivo para toma de decisiones. </td>
+    </tr>
+    <tr>
+        <td>  <a href="https://scipy.org/"><img src="https://www.geomapik.com/wp-content/uploads/2021/09/geopandas_logo_big-750x234.png" width="180"/></a></td>
+        <td><em><b>GeoPandas:</b></em> Para análisis espacial de datos geográficos en tiempo real, para registrar puntos dónde se concreten más ventas y así centralizar y recomendarlos.</td>
+    </tr>
+</tbody>
+</table>
+
+## 🐾 Paso a Paso:
+Para ver los avances del proyecto puedes pasarte por mi [`TODO.md`](TODO.md)
 
 ## 🚀 Acerca de mí
 Soy - en definitiva - una persona que ama el conocimiento y cree en todo el futuro que es posible edificar con él. Estudiante de tercer semestre en la Universidad Nacional de Colombia; dedico mi tiempo libre al aprendizaje de nuevas tecnologías y el desarrollo de diversos proyectos a partir de éstas.
@@ -24,90 +101,3 @@ Soy - en definitiva - una persona que ama el conocimiento y cree en todo el futu
 <a href="https://www.freelancer.com.co/u/juarangozx?sb=t"><img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/freelancer_logo_icon_171122.png" width="40"/></a>
 </p>
 He tenido la oportunidad de aprender mucho en mi camino, de tal manera que he ahondado bastante en temas como lo es el Desarrollo Web Full Stack - tanto Front-end como Back-end y ETLs (para el tratamiento de datos) y no pretendo dejar de hacerlo nunca.
-
-
-## ⚔️ Objetivo: ¿A qué apunta el proyecto?
-Una aplicación que utiliza datos históricos y en tiempo real para realizar análisis de mercado, incluyendo tendencias de precios, volumen de ventas y comportamiento del consumidor, esto con el fin de apoyar a una toma de decisiones mucho más asertiva en un mercado tan dinámico y cambiante.
-
-***Ésta aplicación se enfocará en el mercado de venta minorista de productos y servicios.*** 
-<p align="center">
-    <a href="https://images.ctfassets.net/mmu68mmhtb17/GLo0E4fLQk7mOvm5ko4MI/97d91e16b4b529d12c39e7f32e556028/market-analysis-template.png?w=1395&h=578&q=80&fm=png">
-        <img src="https://images.ctfassets.net/mmu68mmhtb17/GLo0E4fLQk7mOvm5ko4MI/97d91e16b4b529d12c39e7f32e556028/market-analysis-template.png?w=1395&h=578&q=80&fm=png" width="700"/>
-    </a>
-</p>
-<p align="center">
-    <a href="https://cdn.dribbble.com/userupload/7475793/file/original-46a76a5503e8390bf54638be9b6af2ef.jpg?resize=400x0">
-        <img src="https://cdn.dribbble.com/userupload/7475793/file/original-46a76a5503e8390bf54638be9b6af2ef.jpg?resize=400x0" width="400"/>
-    </a>
-</p>
-<img src="https://static.vecteezy.com/system/resources/previews/022/841/114/original/chatgpt-logo-transparent-background-free-png.png" width="30"/>
-
-<blockquote>
-¿Qué debe tener un Market Analysis Tool?
-<ol>
-    <li><em><b>Análisis de datos históricos y en tiempo real:</b></em> Permite a los usuarios acceder y analizar datos históricos de mercado, así como datos en tiempo real para comprender mejor las tendencias y patrones actuales.</li>
-    <li><em><b>Visualización de datos:</b></em> Proporciona gráficos y visualizaciones interactivas que ayudan a los usuarios a comprender rápidamente los datos del mercado y a identificar patrones y relaciones clave.</li>
-    <li><em><b>Segmentación de mercado:</b></em> Permite a los usuarios segmentar el mercado en grupos específicos en función de variables demográficas, geográficas, psicográficas u otras, lo que facilita la identificación de oportunidades de mercado y la personalización de estrategias de marketing.</li>
-    <li><em><b>Análisis de la competencia:</b></em> Ofrece herramientas para analizar y comparar la posición de mercado de una empresa con la de sus competidores, incluyendo precios, participación de mercado, estrategias de marketing y otros factores relevantes.</li>
-    <li><em><b>Pronóstico de demanda:</b></em> Utiliza técnicas de análisis predictivo para pronosticar la demanda futura de productos o servicios, lo que ayuda a las empresas a planificar la producción, gestionar el inventario y establecer estrategias de precios.</li>
-    <li><em><b>Monitoreo de redes sociales y opiniones de los clientes: </b></em>Integra datos de redes sociales y opiniones de clientes para proporcionar información sobre la percepción de la marca, el sentimiento del consumidor y las tendencias emergentes en el mercado.</li>
-    <li><em><b>Análisis de precios y márgenes de beneficio: </b></em>Permite a las empresas analizar sus estrategias de precios y márgenes de beneficio para identificar oportunidades de optimización y maximización de ganancias.</li> 
-    <li>
-        <em><b>Análisis geoespacial:</b></em> Utiliza datos geoespaciales para analizar patrones de consumo, identificar áreas de alto potencial de mercado y optimizar la ubicación de tiendas y puntos de venta.
-   </li> 
-</ol>
-</blockquote>
-
-
-## 🧠 Justificación: ¿Por qué éste proyecto?
-Existe una alta demanda de herramientas que ayuden a los comerciantes y analistas a tomar decisiones informadas basadas en datos del mercado actual. La toma de decisiones resulta vital para el crecimiento de una empresa, por lo tanto, dar la respuesta a éstas preguntas es imperativo: 
-- <em><b>Tendencias de precios:</b></em> ¿Cuáles son las tendencias actuales de precios para los productos o servicios en el mercado? ¿Han aumentado o disminuido los precios en un período de tiempo específico?
-
-- <em><b>Volumen de ventas:</b></em> ¿Cuál es el volumen de ventas actual y cómo ha variado con el tiempo? ¿Existen patrones estacionales o tendencias de crecimiento en las ventas?
-
-- <em><b>Comportamiento del consumidor:</b></em> ¿Qué preferencias y comportamientos de compra exhiben los consumidores? ¿Qué productos son los más populares y cuáles están perdiendo demanda?
-
-- <em><b>Competencia:</b></em> ¿Quiénes son los principales competidores en el mercado y cuál es su participación en el mercado? ¿Cómo se comparan los precios y las estrategias de marketing de la competencia?
-
-- <em><b>Demanda del mercado:</b></em> ¿Cuál es la demanda total del mercado para un producto o servicio específico? ¿Existen segmentos de mercado emergentes que puedan ser aprovechados?
-
-- <em><b>Rentabilidad:</b></em> ¿Cuál es la rentabilidad de ciertos productos o líneas de negocio? ¿Existen oportunidades para mejorar los márgenes de beneficio?
-
-- <em><b>Factores externos:</b></em> ¿Cómo están afectando factores externos como cambios económicos, regulaciones gubernamentales o tendencias sociales al mercado?
-
-- <em><b>Análisis geográfico:</b></em> ¿Qué regiones geográficas muestran mayor demanda o crecimiento en las ventas? ¿Existen diferencias significativas en el comportamiento del consumidor entre diferentes ubicaciones geográficas?
-
-## ⛏️ Herramientas
-<table width="700" align="center">
-    <thead>
-        <tr>
-            <th>Librería📚</th>
-            <th>Uso⚙️</th>
-        </tr>
-    </thead>
-<tbody>
-    <tr>
-        <td><a href="https://pandas.pydata.org/"><img src="https://pandas.pydata.org/static/img/pandas_white.svg" width="130" /></a></td>
-        <td><em><b>Pandas:</b></em> Para manipular y analizar datos estructurados, como series temporales de precios.</td>
-    </tr>
-    <tr>
-        <td><a href="https://numpy.org/"><img src="https://numpy.org/images/logo.svg" width="60px" /></a></td>
-        <td><em><b>Numpy:</b></em> Para realizar cálculos numéricos eficientes en grandes conjuntos de datos de mercado.</td>
-    </tr>
-    <tr>
-        <td><a href="https://matplotlib.org/"><img src="https://matplotlib.org/_static/logo_dark.svg" width="150" /></a></td>
-        <td><em><b>Matplotlib: </b></em>Para visualizar gráficos que representen tendencias y patrones en los datos de mercado.</td>
-    </tr>
-    <tr>
-        <td>  <a href="https://scipy.org/"><img src="https://scipy.org/images/logo.svg" width="60"/></a></td>
-        <td><em><b>Scipy:</b></em> Para análisis estadísticos avanzados y modelado predictivo.</td>
-    </tr>
-    <tr>
-        <td>  <a href="https://scipy.org/"><img src="https://www.geomapik.com/wp-content/uploads/2021/09/geopandas_logo_big-750x234.png" width="180"/></a></td>
-        <td><em><b>GeoPandas:</b></em> Para análisis espacial de datos geográficos relacionados con la ubicación de los comercios y patrones de ventas.</td>
-    </tr>
-</tbody>
-</table>
-
-## 🐾 Paso a Paso:
-Para ver los avances del proyecto puedes pasarte por mi [`TODO.md`](TODO.md)
