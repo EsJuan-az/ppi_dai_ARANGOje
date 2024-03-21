@@ -1,9 +1,9 @@
 from fastapi import Depends, APIRouter, HTTPException, Path, Query
-from typing import Annotated, Union
+from typing import Annotated
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..services.users import UserService
-from ..schemas import UserCreate, UserUpdate
+from ..schemas import UserCreate, UserUpdate, Login
 
 router = APIRouter(prefix = "/user", tags = ['user'])
 
@@ -35,6 +35,16 @@ async def create(
         raise HTTPException(status_code = 500, detail = "Couldn't create User")
     return new_user
 
+@router.post('/auth')
+async def login(
+    login: Login,
+    db: Session = Depends(get_db),
+    ):
+    user = UserService.login(db, login)
+    if not user:
+        raise HTTPException(status_code = 403, detail = "Invalid credentials")
+    return user
+
 @router.put("/")
 async def update(
     user:UserUpdate,
@@ -52,5 +62,5 @@ async def delete(
     ):
     new_user = UserService.delete(db, id)
     if not new_user:
-        raise HTTPException(status_code = 500, detail = "Couldn't update User")
+        raise HTTPException(status_code = 500, detail = "Couldn't delete User")
     return new_user

@@ -2,21 +2,25 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Union
 
+# LOGIN:
+class Login(BaseModel):
+    email: str
+    password: str
+    class Config:
+        orm_mode = True
+
 # BUSINESS: 
 class BusinessBase(BaseModel):
     name: str
     email: str
     password: str
+    phone: str
     holder_id: int
     class Config:
         orm_mode = True
 
 class BusinessCreate(BusinessBase):
     pass    
-
-class BusinessRead(BusinessBase):
-    id: int
-    since: Union[datetime, None] = None
 
 class BusinessUpdate(BusinessBase):
     id: int
@@ -37,10 +41,6 @@ class ShopkeeperBase(BaseModel):
 class ShopkeeperCreate(ShopkeeperBase):
     pass
 
-class ShopkeeperRead(ShopkeeperBase):
-    id: int
-    business: BusinessRead
-
 class ShopkeeperUpdate(ShopkeeperBase):
     id: int
     name: Union[str, None]
@@ -60,11 +60,6 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     pass
 
-class UserRead(UserBase):
-    id: int
-    shopkeepers: set[ShopkeeperRead]
-    businesses: set[BusinessRead]
-    
 class UserUpdate(UserBase):
     id: int
     name: Union[str, None] = None
@@ -86,10 +81,8 @@ class ProductBase(BaseModel):
     
 class ProductCreate(ProductBase):
     pass
-    
-class ProductRead(ProductBase):
-    business: BusinessRead
-    
+
+
 class ProductUpdate(ProductBase):
     id: int
     name: Union[str, None] = None

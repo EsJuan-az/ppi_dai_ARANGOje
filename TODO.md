@@ -3,20 +3,72 @@
 ## ⚙️Lógica interna.
 - [x] 🧠Planear entidades y fuentes de datos.
 
-- [ ] 💻Codificar las entidades y sus relaciones.
+- [ ] 💻Codificar las entidades y sus relaciones (Modelos, Servicios y Rutas).
     - [ ] Fase 1:
         - [x] User.
-        - [ ] Business.
-        - [ ] Producto.
+            - [x] Get all.
+            - [x] Get one.
+            - [x] Create.
+            - [x] Update.
+            - [x] Delete.
+            - [x] Login.
+        - [x] Business.
+            - [x] Get all.
+            - [x] Get one. 
+            - [x] Create.
+            - [x] Update.
+            - [x] Delete.
+            - [x] Login.
+        - [x] Product.
+            - [x] Get all.
+            - [x] Get one.
+            - [x] Create.
+            - [x] Update.
+            - [x] Delete.
         - [ ] Shopkeeper.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
         <p align="center"><img src="./assets/ER1.png" alt="Diagrama ER" width="430"/></p>
 
     - [ ] Fase 2:
-        - [ ] Compra.
-        - [ ] Pedido.
+        - [ ] Purchase.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
+        - [ ] Order.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
     - [ ] Fase 3:
         - [ ] Rol.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
         - [ ] Tags.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
         - [ ] Imagen.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
         - [ ] Comment.
+            - [ ] Get all.
+            - [ ] Get one.
+            - [ ] Create.
+            - [ ] Update.
+            - [ ] Delete.
 - [ ] Planeación de rutas y controladores.

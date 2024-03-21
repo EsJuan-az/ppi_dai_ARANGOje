@@ -30,7 +30,7 @@ class Business(Base):
     phone: Mapped[str] = mapped_column(String(), nullable = False, unique = True)
     password: Mapped[str] = mapped_column(String(), nullable = False)
     holder_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable = False)
-    holder: Mapped["User"] = relationship(back_populates="businesses")
+    holder: Mapped["User"] = relationship(back_populates="businesses", foreign_keys = holder_id)
     shopkeepers: Mapped[Set['Shopkeeper']] = relationship(back_populates = "business")
     since: Mapped[DateTime] = mapped_column(DateTime(), nullable = True)
     products: Mapped[Set["Product"]] = relationship()
