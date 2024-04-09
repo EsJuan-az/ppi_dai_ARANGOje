@@ -59,19 +59,24 @@ class Product(Base):
 
 
 class Shopkeeper(Base):
-    """SHOPKEEPER:
-    user_id: int
-    business_id: int
-    rol_id: int
-    active: boolean"""
+    """
+    SHOPKEEPER:
+    id: int.
+    name: str.
+    business_id: int.
+    user_id: int.
+    active: boolean.
+    rol_id: int #TODO: ROL_ID.
+    user: User.
+    business: Business.
+    """
     __tablename__ = "shopkeeper"
     id: Mapped[int] = mapped_column(primary_key = True)
     name: Mapped[str] = mapped_column(String(), nullable = False)
     business_id: Mapped[int] = mapped_column(ForeignKey('business.id'), nullable = False)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable = False)
     business: Mapped["Business"] = relationship(back_populates='shopkeepers')
-    user: Mapped["User"] = relationship(back_populates='shopkeepers')
-    # TODO: ROL ID.    
+    user: Mapped["User"] = relationship(back_populates='shopkeepers')   
 
     def __repr__(self) -> str:
         return f"Shopkeeper(id={self.id!r}, business={self.business_id!r}, user={self.business_id!r})"
