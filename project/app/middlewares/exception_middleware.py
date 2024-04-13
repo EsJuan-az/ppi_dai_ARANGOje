@@ -1,8 +1,10 @@
 import logging
-from fastapi import Request, HTTPException
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-
+# EXCEPTIONS
+from fastapi import Request, HTTPException
+from fastapi.exceptions import FastAPIError
+from sqlalchemy.exc import SQLAlchemyError
 logger = logging.getLogger(__name__)
 
 class ExceptionHandlerMiddleware(BaseHTTPMiddleware):
@@ -13,6 +15,16 @@ class ExceptionHandlerMiddleware(BaseHTTPMiddleware):
             return JSONResponse(
                 status_code=http_exception.status_code,
                 content={"error": "Client Error", "message": str(http_exception.detail)},
+            )
+        except SQLAlchemyError as exc:
+            return JSONResponse(
+                status_code = 408,
+                content={"error": "Database Client Error", "message": str(exc._message())},
+            )
+        except FastAPIError as exc:
+            return JSONResponse(
+                status_code = 500,
+                content={"error": "Internal Server Error", "message": str(exc.errors())},
             )
         except Exception as e:
             logger.exception(msg=e.__class__.__name__)
