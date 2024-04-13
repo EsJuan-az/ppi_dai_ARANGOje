@@ -2,13 +2,11 @@
 
 ## ⚙️Preset.
 <li>
-    <input type="checkbox" checked>
-    <label>🧠Planear entidades y fuentes de datos.</label>
+    - [ ] 🧠Planear entidades y fuentes de datos.
 </li>
 
 <li>
-    <input type="checkbox">
-    <label>💻Codificar las entidades y sus relaciones (Modelos, Servicios y Rutas).</label>
+    - [ ] 💻Codificar las entidades y sus relaciones (Modelos, Servicios y Rutas).
 </li>
         <table width="500" align="center">
         <tr>
@@ -19,56 +17,44 @@
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get all</label>
+                         - [x] Get all
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get one</label>
+                         - [x] Get one
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Create</label>
+                         - [x] Create
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Update</label>
+                         - [x] Auth
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Delete</label>
+                         - [x] Delete
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Login</label>
+                         - [x] Update
                     </li>
                 </ol>
             </td>
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get all</label>
+                         - [x] Get all
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get one</label>
+                         - [x] Get one
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Create</label>
+                         - [x] Create
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Update</label>
+                         - [x] Auth
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Delete</label>
+                         - [x] Update
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Login</label>
+                         - [x] Delete
                     </li>
                 </ol>
             </td>
@@ -81,48 +67,38 @@
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get all</label>
+                        - [x] Get all
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get one</label>
+                        - [x] Get one
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Create</label>
+                        - [x] Create
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Update</label>
+                        - [x] Update
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Delete</label>
+                        - [x] Delete
                     </li>
                 </ol>
             </td>
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get all</label>
+                        - [x] Get all
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Get one</label>
+                        - [x] Get one
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Create</label>
+                        - [x] Create
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Update</label>
+                        - [x] Update
                     </li>
                     <li>
-                        <input type="checkbox" checked>
-                        <label>Delete</label>
+                        - [x] Delete
                     </li>
                 </ol>
             </td>
