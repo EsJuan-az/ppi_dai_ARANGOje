@@ -8,7 +8,7 @@
 <li>
     - [ ] 💻Codificar las entidades y sus relaciones (Modelos, Servicios y Rutas).
 </li>
-        <table width="500" align="center">
+        <table width="700" align="center">
         <tr>
             <th>Usuario</th>
             <th>Negocio</th>
@@ -117,48 +117,38 @@
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox">
-                        <label>Get all</label>
+                        - [ ] Get all
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Get one</label>
+                        - [ ] Get one
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Create</label>
+                        - [ ] Create
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Update</label>
+                        - [ ] Update
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Delete</label>
+                        - [ ] Delete
                     </li>
                 </ol>
             </td>
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox">
-                        <label>Get all</label>
+                        - [ ] Get all
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Get one</label>
+                        - [ ] Get one
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Create</label>
+                        - [ ] Create
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Update</label>
+                        - [ ] Update
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Delete</label>
+                        - [ ] Delete
                     </li>
                 </ol>
             </td>
@@ -174,48 +164,38 @@
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox">
-                        <label>Get all</label>
+                        - [ ] Get all
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Get one</label>
+                        - [ ] Get one
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Create</label>
+                        - [ ] Create
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Update</label>
+                        - [ ] Update
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Delete</label>
+                        - [ ] Delete
                     </li>
                 </ol>
             </td>
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox">
-                        <label>Get all</label>
+                        - [ ] Get all
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Get one</label>
+                        - [ ] Get one
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Create</label>
+                        - [ ] Create
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Update</label>
+                        - [ ] Update
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Delete</label>
+                        - [ ] Delete
                     </li>
                 </ol>
             </td>
@@ -227,24 +207,19 @@
             <td>
                 <ol>
                     <li>
-                        <input type="checkbox">
-                        <label>Get all</label>
+                        - [ ] Get all
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Get one</label>
+                        - [ ] Get one
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Create</label>
+                        - [ ] Create
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Update</label>
+                        - [ ] Update
                     </li>
                     <li>
-                        <input type="checkbox">
-                        <label>Delete</label>
+                        - [ ] Delete
                     </li>
                 </ol>
             </td>
