@@ -34,10 +34,10 @@ services:
 
   prod_web:
     build: ./project
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8080
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --workers 4
     volumes:
       - ./project:/usr/src/app
     ports:
       - 8005:8080
     environment:
-      - DATABASE_URL=<url>
+      - DATABASE_URL=${DATABASE_URL}

@@ -8,6 +8,8 @@ from sqlalchemy.exc import SQLAlchemyError
 logger = logging.getLogger(__name__)
 
 class ExceptionHandlerMiddleware(BaseHTTPMiddleware):
+    """Exception Middleware: maneja todos los posibles errores que surjan.
+    """
     async def dispatch(self, request: Request, call_next):
         try:
             return await call_next(request)

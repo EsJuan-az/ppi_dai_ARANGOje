@@ -10,6 +10,15 @@ class LoginService(BaseService):
     get_one_join_attrs = []
     @classmethod
     async def login(cls, session:Session, login:Login) -> model:
+        """Login: dado un email y password, regresa entidad.
+
+        Args:
+            session (Session): Sesión de base de datos.
+            login (Login): Objeto con datos de login.
+
+        Returns:
+            model: Objeto que cumple la condición.
+        """
         stmt = select(cls.model)
         for joinAttr in cls.get_one_join_attrs:
             attr = getattr(cls.model, joinAttr)

@@ -12,6 +12,16 @@ class BaseService:
     
     @classmethod
     async def get_all(cls, session:Session, offset:int, limit:int):
+        """Get all: obtiene todas las entidades
+
+        Args:
+            session (Session): Sesión de base de datos.
+            offset (int): Página.
+            limit (int): Entidades por página.
+
+        Returns:
+           list[dict]: Arreglo con todas las entidades.
+        """
         stmt = select(cls.model)
         for joinAttr in cls.get_all_join_attrs:
             attr = getattr(cls.model, joinAttr)
@@ -24,6 +34,15 @@ class BaseService:
     
     @classmethod
     async def get_by_id(cls, session:Session, id:int) -> model:
+        """Get by id: dado un id retorna la entidad correspondiente.
+
+        Args:
+            session (Session): Sesión de base.
+            id (int): Id de entidad
+
+        Returns:
+            model: Objeto que cumpla la condición.
+        """
         stmt = select(cls.model)
         for joinAttr in cls.get_one_join_attrs:
             attr = getattr(cls.model, joinAttr)
@@ -35,6 +54,15 @@ class BaseService:
     
     @classmethod
     async def create(cls, session:Session, entity:model) -> model:
+        """Create: dado un objeto de body, crea una entidad en base y la guarda.
+
+        Args:
+            session (Session): Sesión de base de datos.
+            entity (model): Datos del body para generar la base.
+
+        Returns:
+            model: Objeto creado.
+        """
         session.add(entity)
         await session.commit()
         await session.refresh(entity)
@@ -42,6 +70,16 @@ class BaseService:
         
     @classmethod
     async def update(cls, session:Session, entity:update_model, id: int) -> model:
+        """Update: dado una id y un objeto de datos, actualiza la entidad.
+
+        Args:
+            session (Session): Sesión de base.
+            entity (update_model): Objeto de datos.
+            id (int): Id de entidad.
+
+        Returns:
+            model: Entidad actualizada.
+        """
         entity_dict = entity.model_dump()
         print(entity_dict)
         stmt = select(cls.model)\
@@ -61,6 +99,15 @@ class BaseService:
     
     @classmethod
     async def delete(cls, session:Session, id: int) -> model:
+        """Delete: dado una id desactiva la entidad.
+
+        Args:
+            session (Session): Sesión de base de datos.
+            id (int): Id de entidad.
+
+        Returns:
+            model: Regresa el objeto eliminado.
+        """
         stmt = select(cls.model)\
             .where(cls.model.active)\
             .where(cls.model.id == id)
