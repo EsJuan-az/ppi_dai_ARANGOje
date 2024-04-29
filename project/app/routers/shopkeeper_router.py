@@ -6,6 +6,7 @@ from ..models import Shopkeeper
 from ..services.shopkeeper_service import ShopkeeperService
 from ..schemas.shopkeeper_schema import ShopkeeperUpdate
 
+# Aquí instancio el Router de tendero para manejar sus respectivas peticiones.
 router = APIRouter(prefix = "/shopkeeper", tags = ['shopkeeper'])
 
 @router.get("/")

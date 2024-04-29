@@ -6,6 +6,16 @@ from sqlmodel import select, update, Session
 
 
 class LoginService(BaseService):
+    """LoginService: Este servicio maneja acciones como el login y la obtención
+    según email además de las básicas del BaseService.
+    
+    Args:
+        model (SQLModel): Esquema y modelo de datos SQLModel.
+        get_one_join_attrs (list[str]): Relaciones que se van a traer con cada get_one.
+
+    Extends:
+        BaseService: Servicio de funcionalidades básicas.
+    """
     model = Base
     get_one_join_attrs = []
     @classmethod

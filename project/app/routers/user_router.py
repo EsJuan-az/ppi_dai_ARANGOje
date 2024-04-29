@@ -9,6 +9,7 @@ from ..models import User
 from ..schemas.user_schema import UserUpdate
 from ..schemas.login_schema import Login
 
+# Aquí instancio el Router de usuario para manejar sus respectivas peticiones.
 router = APIRouter(prefix = "/user", tags = ['user'])
 
 @router.get("/")

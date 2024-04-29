@@ -25,10 +25,8 @@ oauth2_scheme = OAuth2PasswordBearer(
 )
 
 class UserSecurityHelper:
-    """Helper de seguridad general para cada tipo de clase.
-    Fields: 
-        Service: Servicio que se usará para llevar a cabo los diversos procesos
-        de encriptación y autenticación.
+    """User Security Helper: Funciones de seguridad general para la clase usuario
+    como lo son cifrar y comparar contraseñas, etcétera.
     """
     @staticmethod
     def verify_password(plain_password, hashed_password):
@@ -141,11 +139,12 @@ class UserSecurityHelper:
         user = await UserService.get_by_id(session, id=token_data.id)
         if user is None:
             raise credentials_exception
+        # Verifica las autorizaciones, y en caso de no tener las requeridas regresa error.
         for scope in security_scopes.scopes:
             if scope not in token_data.scopes:
                 raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Not enough permissions",
+                    detail="No se tienen permisos para ésta acción",
                     headers={"WWW-Authenticate": authenticate_value},
                 )
         return user

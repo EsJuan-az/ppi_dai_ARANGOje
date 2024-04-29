@@ -5,6 +5,7 @@
 - [🧠 Justificación.](#-justificacióm-por-qué-éste-proyecto)
 - [⛏️ Herrmientas.](#%EF%B8%8F-herramientas)
 - [🐾 Paso a paso.](#-paso-a-paso)
+- [💸 Aprende.](#-aprende)
 - [🚀 Acerca de mí.](#-acerca-de-mí)
 
 
@@ -84,6 +85,9 @@ El propósito de éste proyecto es enriquecer aún más la vida universitaria - 
 
 ## 🐾 Paso a Paso:
 Para ver los avances del proyecto puedes pasarte por mi [`TODO.md`](TODO.md)
+
+# 💸 Aprende:
+¿Quieres ver convenciones para contribuír? Pásate por mi [`HOWTO.md`](HOWTO.md)
 
 ## 🚀 Acerca de mí
 Soy - en definitiva - una persona que ama el conocimiento y cree en todo el futuro que es posible edificar con él. Estudiante de tercer semestre en la Universidad Nacional de Colombia; dedico mi tiempo libre al aprendizaje de nuevas tecnologías y el desarrollo de diversos proyectos a partir de éstas.

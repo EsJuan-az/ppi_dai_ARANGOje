@@ -8,7 +8,7 @@ from ..schemas.business_schema import BusinessUpdate
 from ..helpers.security.security_helper import UserSecurityHelper
 from ..models import User
 
-
+# Aquí instancio el Router de negocio para manejar sus respectivas peticiones.
 router = APIRouter(prefix = "/business", tags = ['business'])
 
 @router.get("/")

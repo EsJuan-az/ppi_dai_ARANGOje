@@ -1,16 +1,18 @@
+# Librerías para manejar las peticiones y los errores.
 import logging
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-# EXCEPTIONS
 from fastapi import Request
+# Excepciones que voy a manejar en el middleware.
 from fastapi.exceptions import FastAPIError
 from sqlalchemy.exc import SQLAlchemyError
-# HELPERS
+# Funciones de procesamiento de texto para el mensaje.
 from ..helpers.error_helper import extract_field_from_integrity
 logger = logging.getLogger(__name__)
 
 class ExceptionHandlerMiddleware(BaseHTTPMiddleware):
-    """Exception Middleware: maneja todos los posibles errores que surjan.
+    """Middleware para manejar excepciones: Desde aquí diseño una respuesta adecuada para
+    cada tipo distinto de error.
     Extends:
         BaseHTTPMiddleware: clase Middleware para fastAPI
     """

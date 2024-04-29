@@ -5,6 +5,15 @@ from sqlmodel import select, Session
 
 
 class BaseService:
+    """Servicio Base: Cuenta con funcionalidades básicas CRUD para un modelo
+    de bases de datos.
+    
+    Args:
+        model (SQLModel): Esquema o modelo de base de datos en SQL.
+        update_model (Pydantic.BaseModel): Esquema para la actualización de entidad.
+        get_all_join_attrs (list[str]): Relaciones a traer cada vez que se ejecuta un get_all.
+        get_one_join_attrs (list[str]): Relaciones a traer cada vez que se ejecuta un get_one.
+    """
     model = Base
     update_model = BaseModel
     get_all_join_attrs = []

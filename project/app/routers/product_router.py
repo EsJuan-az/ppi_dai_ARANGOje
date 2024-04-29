@@ -6,6 +6,7 @@ from ..models import Product
 from ..services.product_service import ProductService
 from ..schemas.product_schema import ProductUpdate
 
+# Aquí instancio el Router de producto para manejar sus respectivas peticiones.
 router = APIRouter(prefix = "/product", tags = ['product'])
 
 @router.get("/")
