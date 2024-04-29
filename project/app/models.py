@@ -68,9 +68,7 @@ class Business(Base, table = True):
     BUSINESS:
     id: int.
     name: string.
-    email: string.
     phone: string.
-    password: string.
     holder_id: int FK.
     holder: User.
     shopkeepers: Shopkeeper[].
@@ -80,9 +78,6 @@ class Business(Base, table = True):
     """
     #TODO: PLAN RELATIONSHIP N-N. 
     name: str = Field(nullable = False)
-    email: str = Field(nullable = False, unique = True)
-    phone: str = Field(nullable = False, unique = True)
-    password: str = Field( nullable = False)
     holder_id: int = Field(foreign_key='user.id', nullable = False)
     holder: 'User' = Relationship(back_populates = 'own_businesses')
     shopkeepers: 'Shopkeeper' = Relationship(back_populates = 'business')

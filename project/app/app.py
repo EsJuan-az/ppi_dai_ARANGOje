@@ -1,9 +1,10 @@
 # THIRD PARTY LIBS:
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
 from contextlib import asynccontextmanager
 from .middlewares.exception_middleware import ExceptionHandlerMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+
 
 
 # HELPERS
@@ -18,6 +19,13 @@ from .routers.shopkeeper_router import router as ShopkeeperRouter
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Función que se ejecuta una vez se inicial la base de datos
+
+    Args:
+        app (FastAPI): Objeto APP que se enlaza con la DB.
+    Returns:
+        Generador.
+    """
     db_startup()
     yield
     
@@ -25,18 +33,46 @@ async def lifespan(app: FastAPI):
 class App:
     def __init__(self):
         """Setting inicial: Añade middlewares, rutas y evento de creación.
+        Args:
+        Return:
         """
         self._app = FastAPI(
             lifespan = lifespan,
         )
+        self.set_errors()
         self.set_middlewares()
         self.set_routes()
     
+    
+    def set_errors(self):
+        """Maneja algunos errores que no alcanzan los middlewares.
+        Args:
+        Return:
+        """
+        @self._app.exception_handler(HTTPException)
+        async def http_exc_handler(request: Request, http_exception: HTTPException):
+            return JSONResponse(
+                status_code=http_exception.status_code,
+                content={
+                    "error": "Client Error",
+                    "message": str(http_exception.detail),
+                }, 
+            )
+            
+    
     def set_routes(self):
         """Rutas: Añade las rutas por defecto y añade un método de ping.
+        Args:
+        Return:
         """
         @self._app.get('/')
         def ping():
+            """Esta función maneja la petición básica para
+            un healthchek.
+
+            Returns:
+                dict: Dummy data para obtener.
+            """
             return {
                 'ping': 'pong',
             }
@@ -48,9 +84,10 @@ class App:
         
     def set_middlewares(self):
         """Middlewares: Añade gestión de errores y manejo de peticiones externas.
+        Args:
+        Returns:
         """
         self._app.add_middleware(ExceptionHandlerMiddleware)
-
         self._app.add_middleware(
             CORSMiddleware,
             allow_origins=['*'],

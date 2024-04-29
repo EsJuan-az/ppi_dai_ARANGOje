@@ -4,7 +4,7 @@ from sqlmodel import Session
 from ..database import get_db
 
 from ..services.user_service import UserService
-
+from ..helpers.security.security_helper import UserSecurityHelper
 from ..models import User
 from ..schemas.user_schema import UserUpdate
 from ..schemas.login_schema import Login
@@ -29,6 +29,23 @@ async def get_all(
     """
     return await UserService.get_all(db, offset, limit)
 
+
+@router.get("/me", response_model=User)
+def get_me(
+    current_user: Annotated[User, Depends(UserSecurityHelper.get_current)],
+    ):
+    """Get me: Dado un token de autenticación, obtiene el usuario actual. 
+    
+    Args:
+        db (Session): Sesión de base de datos.
+        current_user (User): Usuario obtenido. Defaults to Depends(get_db).
+
+    Returns:
+        dict: Respuesta del servicio.
+    """
+    return current_user
+
+
 @router.get("/{id}")
 async def get_by_id(
     id: Annotated[int, Path(title="ID of the user we want to find")],
@@ -51,6 +68,7 @@ async def get_by_id(
         raise HTTPException(status_code = 404, detail = "user not found")
     return user
 
+
 @router.post("/", status_code = 201)
 async def create(
     user:User,
@@ -68,10 +86,12 @@ async def create(
     Returns:
         dict: Respuesta del servicio.
     """
+    user.password = UserSecurityHelper.get_password_hash(user.password)
     new_user = await UserService.create(db, user)
     if not new_user:
         raise HTTPException(status_code = 500, detail = "couldn't create User")
     return new_user
+
 
 @router.post('/auth')
 async def login(
@@ -90,14 +110,12 @@ async def login(
     Returns:
         dict: Respuesta del servicio.
     """
-    user = await UserService.login(db, login)
-    if not user:
-        raise HTTPException(status_code = 403, detail = "invalid credentials")
-    return user
+    token = await UserSecurityHelper.authenticate(db, login)
+    return token
 
-@router.put("/{id}")
+@router.put("/me")
 async def update(
-    id: Annotated[int, Path(title="ID of the user we want to update")],
+    current_user: Annotated[User, Depends(UserSecurityHelper.get_current)],
     user:UserUpdate,
     db: Session = Depends(get_db),
     ):
@@ -114,14 +132,15 @@ async def update(
     Returns:
         dict: Respuesta del servicio.
     """
-    new_user = await UserService.update(db, user, id)
+    new_user = await UserService.update(db, user, current_user.id)
     if not new_user:
         raise HTTPException(status_code = 500, detail = "couldn't update User")
     return new_user
 
-@router.delete("/{id}")
+
+@router.delete("/me")
 async def delete(
-    id: Annotated[int, Path(title="ID of the user we want to deactivate")],
+    current_user: Annotated[User, Depends(UserSecurityHelper.get_current)],
     db: Session = Depends(get_db),
     ):
     """Delete: Elimina un elemento según su id.
@@ -136,7 +155,7 @@ async def delete(
     Returns:
         dict: Respuesta del servicio.
     """
-    new_user = await UserService.delete(db, id)
+    new_user = await UserService.delete(db, current_user.id)
     if not new_user:
         raise HTTPException(status_code = 500, detail = "couldn't delete User")
     return new_user

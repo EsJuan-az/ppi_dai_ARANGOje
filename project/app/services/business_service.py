@@ -1,8 +1,8 @@
-from .base_login_service import LoginService
+from .base_service import BaseService
 from ..models import Business
 from ..schemas.business_schema import BusinessUpdate
 
-class BusinessService(LoginService):
+class BusinessService(BaseService):
     model = Business
     update_model = BusinessUpdate
     get_all_join_attrs = ['holder']

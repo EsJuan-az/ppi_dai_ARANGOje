@@ -28,3 +28,20 @@ class LoginService(BaseService):
             .where(cls.model.password == login.password)
         result = await session.exec(stmt)
         return result.one() 
+    @classmethod
+    async def get_by_email(cls, session:Session, email:str) -> model:
+        """Get by email: dado un email, regresa entidad.
+        Args:
+            session (Session): Sesión de base de datos.
+            email(str): email para obtener.
+        Returns:
+            model: Objeto que cumple la condición.
+        """
+        stmt = select(cls.model)
+        for joinAttr in cls.get_one_join_attrs:
+            attr = getattr(cls.model, joinAttr)
+            stmt = stmt.join(attr)
+        stmt = stmt.where(cls.model.active)\
+            .where(cls.model.email == email)
+        result = await session.exec(stmt)
+        return result.one() 

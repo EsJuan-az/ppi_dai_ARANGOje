@@ -11,7 +11,7 @@ class BaseService:
     get_one_join_attrs = []
     
     @classmethod
-    async def get_all(cls, session:Session, offset:int, limit:int):
+    async def get_all(cls, session:Session, offset:int, limit:int, query:dict = {}):
         """Get all: obtiene todas las entidades
 
         Args:
@@ -27,6 +27,8 @@ class BaseService:
             attr = getattr(cls.model, joinAttr)
             stmt = stmt.join(attr)
         stmt = stmt.where(cls.model.active)
+        for key, val in query.items():
+            stmt = stmt.where(getattr(cls.model, key) == val)
         stmt = stmt.offset(offset)\
             .limit(limit)
         result = await session.exec(stmt)
@@ -81,12 +83,7 @@ class BaseService:
             model: Entidad actualizada.
         """
         entity_dict = entity.model_dump()
-        print(entity_dict)
-        stmt = select(cls.model)\
-            .where(cls.model.active)\
-            .where(cls.model.id == id)
-        new_entity = await session.exec(stmt)
-        new_entity = new_entity.one()
+        new_entity = await cls.get_by_id(session, id)
         for key, val in entity_dict.items():
             if val is None:
                 continue
