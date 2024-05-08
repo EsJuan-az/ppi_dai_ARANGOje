@@ -1,5 +1,5 @@
 from fastapi import Depends, APIRouter, HTTPException, Path, Query, status
-from typing import Annotated
+from typing import Annotated, Optional
 from sqlmodel import Session
 from ..database import get_db
 from ..models import Business
@@ -30,6 +30,7 @@ async def get_all(
     return await BusinessService.get_all(db, offset, limit)
 
 
+
 @router.get("/me")
 async def get_me(
     current_user: Annotated[User, Depends(UserSecurityHelper.get_current)],
@@ -40,6 +41,7 @@ async def get_me(
     """Get by id: Dado un id, regresa su negicio correspondiente 
 
     Args:
+        current_user (Annotated[User, Depends(UserSecurityHelper.get_current)): Usuario autenticado.
         id (Annotated[int, Path, optional): Id de entidad. Defaults to "ID of the business we want to find")].
         db (Session, optional): Motor de base de datos. Defaults to Depends(get_db).
 
@@ -49,10 +51,11 @@ async def get_me(
     Returns:
         dict: Respuesta del servicio.
     """
-    return await BusinessService.get_all(db, offset, limit, { 'holder_id': current_user.id })
+    return await BusinessService.get_all(db, offset, limit, [Business.holder_id == current_user.id])
 
 @router.get("/{id}")
 async def get_by_id(
+    current_user: Annotated[Optional[User], Depends(UserSecurityHelper.get_optional_current)],
     id: Annotated[int, Path(title="ID of the business we want to find")],
     db: Session = Depends(get_db),
     ):
@@ -68,10 +71,15 @@ async def get_by_id(
     Returns:
         dict: Respuesta del servicio.
     """
-    user = await BusinessService.get_by_id(db, id)
-    if not user:
+    
+    business = await BusinessService.get_by_id(db, id)
+    if not business:
         raise HTTPException(status_code = 404, detail = "business not found")
-    return user
+    business = business.__dict__
+    business['user_has_rights'] = False
+    if current_user and current_user.is_associated_with_business(id):
+        business['user_has_rights'] = True
+    return business
 
 
 @router.post("/", status_code = 201)
@@ -83,6 +91,7 @@ async def create(
     """Create: dada una información de body crea una entidad en base de datos.
 
     Args:
+        current_user (Annotated[User, Depends(UserSecurityHelper.get_current)): Usuario autenticado.
         business (Business): Objeto de sqlmodel tomado del body.
         db (Session, optional): Motor de base de datos. Defaults to Depends(get_db).
 
@@ -109,7 +118,8 @@ async def update(
     """Update: Actualiza un registro según datos mutables y su id.
 
     Args:
-        business (BusinessUpdate): Objeto con los datos mutables.
+        current_user (Annotated[User, Depends(UserSecurityHelper.get_current)): Usuario autenticado.
+        businessUp (BusinessUpdate): Objeto con los datos mutables.
         id (Annotated[int, Path, optional): Id de entidad. Defaults to "ID of the business we want to update")].
         db (Session, optional): Motor de base de datos. Defaults to Depends(get_db).
 
@@ -121,7 +131,7 @@ async def update(
     """
     business = await BusinessService.get_by_id(db, id)
     if business.holder_id != current_user.id:
-        raise HTTPException(status_code = status.HTTP_403_FORBIDDEN , detail = "you don't have permission for this action")
+        raise HTTPException(status_code = status.HTTP_403_FORBIDDEN , detail = "No tienes permiso para esta acción")
     new_business = await BusinessService.update(db, businessUp, id)
     if not new_business:
         raise HTTPException(status_code = 500, detail = "couldn't update Business")
@@ -137,6 +147,7 @@ async def delete(
     """Delete: Elimina un elemento según su id.
 
     Args:
+        current_user (Annotated[User, Depends(UserSecurityHelper.get_current)): Usuario autenticado.
         id (Annotated[int, Path, optional): Id de entidad. Defaults to "ID of the business we want to deactivate")].
         db (Session, optional): Motor de base de datos. Defaults to Depends(get_db).
 

@@ -11,11 +11,10 @@ class Base(SQLModel):
     Args:
         id: int. Identificador.
         active: Entidad activa o no.
-        created_at: Fecha de creación.
+        created_at: Fecha de creación.k
         updated_at: Fecha de actualización.
     """
     id: int = Field(primary_key = True)
-    active: bool = Field(default = True)
     created_at: datetime = Field(
         sa_type = TIMESTAMP(timezone=True),
         sa_column_kwargs={
@@ -46,15 +45,41 @@ class User(Base, table = True):
         active: boolean. Usuaio activo o no.
     """
     name: str = Field(nullable = False)
-    nick: str = Field(nullable = False)
     email: str = Field(nullable = False, unique = True)
     password: str = Field(nullable = False)
     phone: str = Field(nullable = False, unique = True)
-    shopkeepers: List['Shopkeeper'] = Relationship(back_populates = 'user')
-    own_businesses: List['Business'] = Relationship(back_populates = 'holder')
-    purchases: List['Purchase'] = Relationship(back_populates='customer')
-    orders: List['Order'] = Relationship(back_populates='customer')
+    shopkeepers: List['Shopkeeper'] = Relationship(
+        back_populates = 'user',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    own_businesses: List['Business'] = Relationship(
+        back_populates = 'holder',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    orders: List['Order'] = Relationship(
+        back_populates='customer',
+        )
     image: Optional[str] = Field(nullable = True)
+
+    
+    def is_associated_with_business(self, business_id: int) -> bool:
+        """Revisa si el usuario es empleado o propietario del negocio.
+
+        Args:
+            business_id (int): El ID del negocio a revisar.
+
+        Returns:
+            bool: True si el usuario está asociado al negocio, False de otra manera.
+        """
+        #Check if the user owns the business
+        if any(business.id == business_id for business in self.own_businesses):
+            return True
+        
+        # Check if the user is a shopkeeper in the business
+        if any(shopkeeper.business_id == business_id for shopkeeper in self.shopkeepers):
+            return True
+
+        return False
     
     
 class Shopkeeper(Base, table = True):
@@ -77,8 +102,14 @@ class Shopkeeper(Base, table = True):
     lat: float = Field(nullable = True)
     working: bool = Field(default = False)
     user_id: int = Field(nullable = False, foreign_key = 'user.id')
-    business: 'Business' = Relationship(back_populates = 'shopkeepers')
-    user: 'User' = Relationship(back_populates = 'shopkeepers')
+    business: 'Business' = Relationship(
+        back_populates = 'shopkeepers',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    user: 'User' = Relationship(
+        back_populates = 'shopkeepers',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
     
 
 class Business(Base, table = True):
@@ -97,12 +128,20 @@ class Business(Base, table = True):
     name: str = Field(nullable = False)
     holder_id: int = Field(foreign_key='user.id', nullable = False)
     description: str = Field(nullable=True);
-    holder: 'User' = Relationship(back_populates = 'own_businesses')
-    shopkeepers: 'Shopkeeper' = Relationship(back_populates = 'business')
+    holder: 'User' = Relationship(
+        back_populates = 'own_businesses',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    shopkeepers: 'Shopkeeper' = Relationship(
+        back_populates = 'business',
+        )
     image: Optional[str] = Field( nullable = True)
-    products: List['Product'] = Relationship(back_populates = 'business')
-    orders: List['Order'] = Relationship(back_populates = 'business')
-    purchases: List['Purchase'] = Relationship(back_populates = 'business')
+    products: List['Product'] = Relationship(
+        back_populates = 'business',
+        )
+    orders: List['Order'] = Relationship(
+        back_populates = 'business',
+        )
     
 
 class Product(Base, table = True):
@@ -126,9 +165,13 @@ class Product(Base, table = True):
     price: float = Field(default=0.0)
     stock: int = Field(nullable = False)
     business_id: int = Field(nullable = False, foreign_key = 'business.id')
-    business: 'Business'  = Relationship(back_populates='products')
-    purchases: List['PurchaseProduct'] = Relationship(back_populates='product')
-    orders: List['OrderProduct'] = Relationship(back_populates='product')
+    business: 'Business'  = Relationship(
+        back_populates='products',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    order_products: List['OrderProduct'] = Relationship(
+        back_populates='product',
+        )
     images: List[str] = Field(sa_type=ARRAY(String))
     
 
@@ -157,23 +200,29 @@ class Order(Base, table = True):
         status: str. Estado de la orden.
 
     """
-    customer_id: int = Field(foreign_key="user.id")
-    business_id: int = Field(foreign_key="business.id")
+    customer_id: int = Field(foreign_key="user.id", nullable=False)
+    business_id: int = Field(foreign_key="business.id", nullable=False)
     lon: float = Field(nullable = True)
     lat: float = Field(nullable = True)
-    order_products: List["OrderProduct"] = Relationship(back_populates="order")
-    customer: 'User' = Relationship(back_populates='orders')
-    business: 'Business' = Relationship(back_populates="orders")
+    order_products: List["OrderProduct"] = Relationship(
+        back_populates="order",
+        )
+    customer: 'User' = Relationship(
+        back_populates='orders',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    business: 'Business' = Relationship(
+        back_populates="orders",
+        )
     status: OrderStatus = Field(default = OrderStatus.EN_ESPERA)
     @property
     def total_price(self) -> float:
         return sum(op.product.price * op.amount for op in self.order_products)
     
-class OrderProduct(Base, table = True):
+class OrderProduct(SQLModel, table = True):
     """Modelo completo de relación orden-producto.
 
     Args:
-        id: int. Identificador de la relación order-product.
         order_id: int. Identificador de orden.
         product_id: int. Identificador del producto.
         amount: int. Cantidad del producto.
@@ -181,50 +230,17 @@ class OrderProduct(Base, table = True):
         product: Product. Producto.
     """
     __tablename__: str = 'order_product'
-    order_id: int = Field(foreign_key="order.id")
-    product_id: int = Field(foreign_key="product.id")
-    amount: int = Field(default=1)
-    order: Order = Relationship(back_populates="order_products")
-    product: Product = Relationship(back_populates="product_orders")
-    
-
-class Purchase(Base, table = True):
-    """Modelo completo de compra.
-
-    Args:
-        id: int. Identificador de la compra.
-        business_id: int. Identificador del negocio.
-        customer_id: int|None. Identificador del cliente.
-        purchase_products: list[PurchaseProduct]. Relaciones.
-        customer: User. Cliente.
-        business: Business. Negocio.
-    """
-    business_id: int = Field(foreign_key='business.id')
-    customer_id: Optional[int] = Field(default=None, foreign_key='user.id')
-    purchase_products: List['PurchaseProduct'] = Relationship(back_populates="purchase")
-    customer: 'User' = Relationship(back_populates='purchases')
-    business: 'Business' = Relationship(back_populates="purchases")
-    
-    @property
-    def total_price(self) -> float:
-        """Calcula el precio total de la compra sumando el precio de cada producto multiplicado por su cantidad."""
-        return sum(pp.product.price * pp.amount for pp in self.purchase_products)
-
-
-class PurchaseProduct(Base, table = True):
-    """Modelo completo de relación compra-producto.
-
-    Args:
-        id: int. Identificador de la relación order-product.
-        purchase_id: int. Identificador de compra.
-        product_id: int. Identificador del producto.
-        amount: int. Cantidad del producto.
-        purchase: Purchase. Compra.
-        product: Product. Producto.
-    """
-    __tablename__: str = 'purchase_product'
-    purchase_id: int = Field(foreign_key="purchase.id", primary_key=True)
+    order_id: int = Field(foreign_key="order.id", primary_key=True)
     product_id: int = Field(foreign_key="product.id", primary_key=True)
     amount: int = Field(default=1)
-    purchase: 'Purchase' = Relationship(back_populates="purchase_products")
-    product: 'Product' = Relationship(back_populates="product_purchases")
+    order: Order = Relationship(
+        back_populates="order_products",
+        sa_relationship_kwargs={'lazy': 'selectin'},
+
+        )
+    product: Product = Relationship(
+        back_populates="order_products",
+        sa_relationship_kwargs={'lazy': 'selectin'},
+
+        )
+    

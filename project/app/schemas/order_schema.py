@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Union
+from typing import Union, Dict, List
 from ..models import OrderStatus
 
 class OrderUpdate(BaseModel):
@@ -18,4 +18,10 @@ class OrderUpdate(BaseModel):
     lat: Union[float, None] = None
     status: Union[OrderStatus, None] = None
 
-    
+class RemoveProduct:
+    """Esquema de remover producto a orden.
+
+    Args:
+        id: (int): Id del producto.
+    """
+    id: int

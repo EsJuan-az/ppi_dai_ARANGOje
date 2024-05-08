@@ -15,6 +15,8 @@ from .routers.user_router import router as UserRouter
 from .routers.business_router import router as BusinessRouter 
 from .routers.product_router import router as ProductRouter 
 from .routers.shopkeeper_router import router as ShopkeeperRouter 
+from .routers.order_router import router as OrderRouter 
+
 
 
 @asynccontextmanager
@@ -80,6 +82,8 @@ class App:
         self._app.include_router(BusinessRouter)
         self._app.include_router(ProductRouter)
         self._app.include_router(ShopkeeperRouter)
+        self._app.include_router(OrderRouter)
+        
         
         
     def set_middlewares(self):

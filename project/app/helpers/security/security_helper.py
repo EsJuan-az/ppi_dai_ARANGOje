@@ -1,6 +1,6 @@
 # LIBRERÍAS EXTERNAS.
 from datetime import datetime, timedelta, timezone
-from typing import Annotated, Union
+from typing import Annotated, Union, Optional
 from sqlmodel import Session
 from fastapi import Depends, HTTPException, Security, status
 from fastapi.security import (
@@ -23,6 +23,7 @@ oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="token",
     scopes={"me": "Read information about the current user.", "items": "Read items."},
 )
+optional_oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth", auto_error=False)
 
 class UserSecurityHelper:
     """User Security Helper: Funciones de seguridad general para la clase usuario
@@ -148,3 +149,59 @@ class UserSecurityHelper:
                     headers={"WWW-Authenticate": authenticate_value},
                 )
         return user
+    
+    @staticmethod
+    async def get_optional_current(
+        security_scopes: SecurityScopes,
+        token: Annotated[Optional[str], Depends(optional_oauth2_scheme)],
+        session: Annotated[Session, Depends(get_db)]
+    ):
+        """Dado un token, obtiene el usuario correspondiente.
+        Args:
+            security_scopes (SecurityScopes): _description_
+            token (Annotated[str, Depends): Token a parsear.
+            session (Annotated[Session, Depends): Sesión de base de datos.
+        Raises:
+            credentials_exception: Posible error de credenciales.
+            HTTPException: Desencadena error de protocolo.
+        Returns:
+            dict: Datos del usuario.
+        """
+        # Añadimos los scopes al token en caso de existir.
+        if security_scopes.scopes:
+            authenticate_value = f'Bearer scope="{security_scopes.scope_str}"'
+        else:
+            authenticate_value = "Bearer"
+            
+        # Declaramos una excepción en caso de necesitarla.    
+        credentials_exception = HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Credenciales invalidas",
+            headers={"WWW-Authenticate": authenticate_value},
+        )
+        token_data = None
+        
+        if not token:
+            return None
+        # Aquí decodificamos el JWT.
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM], options={'verify_sub': False})
+            id: int = payload.get("sub")
+            if id is None:
+                raise credentials_exception
+            token_scopes = payload.get("scopes", [])
+            token_data = TokenData(scopes=token_scopes, id=id)
+        except (JWTError, ValidationError):
+            print(credentials_exception)
+            raise credentials_exception
+        
+        #Verificamos que existe la token data.
+        if token_data is None or token_data.id is None:
+            raise credentials_exception
+        
+        # Obtenemos el usuario.
+        user = await UserService.get_by_id(session, id=token_data.id)
+        if user is None:
+            raise credentials_exception
+        return user
+        
