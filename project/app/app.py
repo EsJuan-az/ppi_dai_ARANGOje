@@ -1,6 +1,5 @@
 # THIRD PARTY LIBS:
 from fastapi import FastAPI, HTTPException, Request
-from contextlib import asynccontextmanager
 from .middlewares.exception_middleware import ExceptionHandlerMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,7 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 # HELPERS
-from .database import db_startup
 
 # ROUTERS
 from .routers.user_router import router as UserRouter 
@@ -16,21 +14,9 @@ from .routers.business_router import router as BusinessRouter
 from .routers.product_router import router as ProductRouter 
 from .routers.shopkeeper_router import router as ShopkeeperRouter 
 from .routers.order_router import router as OrderRouter 
+from .routers.record_router import router as RecordRouter 
 
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Función que se ejecuta una vez se inicial la base de datos
-
-    Args:
-        app (FastAPI): Objeto APP que se enlaza con la DB.
-    Returns:
-        Generador.
-    """
-    db_startup()
-    yield
-    
     
 class App:
     def __init__(self):
@@ -38,9 +24,7 @@ class App:
         Args:
         Return:
         """
-        self._app = FastAPI(
-            lifespan = lifespan,
-        )
+        self._app = FastAPI()
         self.set_errors()
         self.set_middlewares()
         self.set_routes()
@@ -83,6 +67,7 @@ class App:
         self._app.include_router(ProductRouter)
         self._app.include_router(ShopkeeperRouter)
         self._app.include_router(OrderRouter)
+        self._app.include_router(RecordRouter)
         
         
         

@@ -1,9 +1,10 @@
 from ..models import Base
 from pydantic import BaseModel
 from sqlmodel import select, Session, exists
-from sqlalchemy.orm import joinedload
-
-
+from sqlalchemy.orm import subqueryload
+from sqlalchemy import desc
+from sqlmodel import select
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 class BaseService:
     """Servicio base para el CRUD de entidades en base de datos.
@@ -52,9 +53,9 @@ class BaseService:
            list[dict]: Arreglo con todas las entidades.
         """
         join_attrs = [getattr(self.model, attr) for attr in self.get_all_join_attrs] 
-        stmt = select(self.model)
+        stmt = select(self.model).order_by(desc(self.model.created_at))
         if len(join_attrs) > 0:
-            stmt = stmt.options(*[joinedload(attr) for attr in join_attrs])
+            stmt = stmt.options(*[subqueryload(attr) for attr in join_attrs])
         for attr in join_attrs:
             stmt = stmt.join(attr)
         for condition in query:
@@ -79,7 +80,7 @@ class BaseService:
         join_attrs = [getattr(self.model, attr) for attr in self.get_all_join_attrs] 
         stmt = select(self.model)
         if len(join_attrs) > 0:
-            stmt = stmt.options(*[joinedload(attr) for attr in join_attrs])
+            stmt = stmt.options(*[subqueryload(attr) for attr in join_attrs])
         for attr in join_attrs:
             stmt = stmt.join(attr)
         for condition in query:
@@ -100,7 +101,7 @@ class BaseService:
         join_attrs = [getattr(self.model, attr) for attr in self.get_one_join_attrs] 
         stmt = select(self.model)
         for attr in join_attrs:
-            stmt = stmt.options(joinedload(attr))
+            stmt = stmt.options(subqueryload(attr))
         for attr in join_attrs:
             stmt = stmt.join(attr)
         stmt = stmt.where(self.model.id == id)
@@ -145,17 +146,22 @@ class BaseService:
         return new_entity
         
     
-    async def delete(self, session:Session, id: int):
-        """Delete: dado una id desactiva la entidad.
+    async def delete(self, session: AsyncSession, id: int) -> bool:
+        """Delete: dado una id, elimina la entidad.
 
         Args:
-            session (Session): Sesión de base de datos.
-            id (int): Id de entidad.
+            session (AsyncSession): Sesión de base de datos asíncrona.
+            id (int): Id de la entidad.
 
         Returns:
-            model: Regresa el objeto eliminado.
+            bool: True si la entidad fue eliminada.
         """
-        entity = await self.get_by_id(session, id)
-        session.delete(new_entity);
-        await session.commit()
-        return True
+        stmt = select(self.model).where(self.model.id == id)
+        result = await session.exec(stmt)
+        entity = result.one_or_none()
+
+        if entity:
+            await session.delete(entity)
+            await session.commit()
+            return True
+        return False

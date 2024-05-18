@@ -14,7 +14,7 @@ router = APIRouter(prefix = "/shopkeeper", tags = ['shopkeeper'])
 async def get_by_id(
     id: Annotated[int, Path(title="ID of the shopkeeper we want to find")],
     offset: Annotated[int, Query(title = "The page of product we want to get")] = 0,
-    limit:  Annotated[int, Query(title = "The number of products we want to get per page")] = 10,
+    limit:  Annotated[int, Query(title = "The number of products we want to get per page")] = 30,
     db: Session = Depends(get_db),
     ):
     """Get by id: Dado un id, regresa los shopkeepers de este negocio. 

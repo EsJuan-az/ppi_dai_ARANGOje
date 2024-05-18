@@ -176,5 +176,7 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 
-REMEMBER.md
 alembic_prod.ini
+test.ipynb
+
+**/*cache*/

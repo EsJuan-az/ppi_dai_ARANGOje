@@ -13,5 +13,5 @@ ProductService = BaseService(
     model = Product,
     update_model = ProductUpdate,
     get_all_join_attrs = ['business'],
-    get_one_join_attrs = [],
+    get_one_join_attrs = ['business'],
     )

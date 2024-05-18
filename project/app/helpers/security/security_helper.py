@@ -174,11 +174,6 @@ class UserSecurityHelper:
             authenticate_value = "Bearer"
             
         # Declaramos una excepción en caso de necesitarla.    
-        credentials_exception = HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Credenciales invalidas",
-            headers={"WWW-Authenticate": authenticate_value},
-        )
         token_data = None
         
         if not token:
@@ -193,15 +188,15 @@ class UserSecurityHelper:
             token_data = TokenData(scopes=token_scopes, id=id)
         except (JWTError, ValidationError):
             print(credentials_exception)
-            raise credentials_exception
+            return None
         
         #Verificamos que existe la token data.
         if token_data is None or token_data.id is None:
-            raise credentials_exception
+            return None
         
         # Obtenemos el usuario.
         user = await UserService.get_by_id(session, id=token_data.id)
         if user is None:
-            raise credentials_exception
+            return None
         return user
         

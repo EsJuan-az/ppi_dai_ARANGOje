@@ -8,14 +8,15 @@ from ..helpers.security.security_helper import UserSecurityHelper
 from ..models import User
 from ..schemas.user_schema import UserUpdate
 from ..schemas.login_schema import Login
-
+from ..models import Record
+from ..services.record_service import RecordService
 # Aquí instancio el Router de usuario para manejar sus respectivas peticiones.
 router = APIRouter(prefix = "/user", tags = ['user'])
 
 @router.get("/")
 async def get_all(
     offset: Annotated[int, Query(title = "the page of user we want to get")] = 0,
-    limit:  Annotated[int, Query(title = "the number of users we want to get per page")] = 10,
+    limit:  Annotated[int, Query(title = "the number of users we want to get per page")] = 30,
     db:Session = Depends(get_db),
     ):
     """Get all: Invoca al servicio para obtener todos los user.
@@ -91,6 +92,11 @@ async def create(
     new_user = await UserService.create(db, user)
     if not new_user:
         raise HTTPException(status_code = 500, detail = "couldn't create User")
+    record = Record(
+        user_id=new_user.id,
+        raw_message='$uname$ se ha registrado en la plataforma',
+    )
+    await RecordService.create(db, record)
     return new_user
 
 
@@ -133,6 +139,8 @@ async def update(
     Returns:
         dict: Respuesta del servicio.
     """
+    if( user.password is not None ):
+        user.password = UserSecurityHelper.get_password_hash(user.password)
     new_user = await UserService.update(db, user, current_user.id)
     if not new_user:
         raise HTTPException(status_code = 500, detail = "couldn't update User")

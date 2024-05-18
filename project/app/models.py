@@ -59,9 +59,17 @@ class User(Base, table = True):
     orders: List['Order'] = Relationship(
         back_populates='customer',
         )
+    records: List['Record'] = Relationship(
+        back_populates = 'user',
+        )
     image: Optional[str] = Field(nullable = True)
-
     
+    @property
+    def associated_business_ids(self) -> list:
+        return [
+            *(business.id for business in self.own_businesses),
+            *(shopkeeper.business_id for shopkeeper in self.shopkeepers)
+            ]
     def is_associated_with_business(self, business_id: int) -> bool:
         """Revisa si el usuario es empleado o propietario del negocio.
 
@@ -112,6 +120,40 @@ class Shopkeeper(Base, table = True):
         )
     
 
+class Record(Base, table = True):
+    """Modelo completo de anotación.
+    
+    Args:
+        id: int. Identificador del anotación.
+        business_id: int FK. Identificador del negocio.
+        user_id: int FK. Identificador del usuario.
+        raw_message: string.
+        user: User.
+        business: Business.
+        active: bool. anotación activo o no.
+    """
+    business_id: int = Field(nullable = True, foreign_key = 'business.id')
+    raw_message: str = Field(nullable = False)
+    user_id: int = Field(nullable = True, foreign_key = 'user.id')
+    business: Optional['Business'] = Relationship(
+        back_populates = 'records',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    user: Optional['User'] = Relationship(
+        back_populates = 'records',
+        sa_relationship_kwargs={'lazy': 'selectin'},
+        )
+    @property
+    def message(self):
+        message = self.raw_message
+        if self.user is not None:
+            message = message.replace('$uname$', self.user.name)
+        if self.business is not None:
+            message = message.replace('$bname$', self.business.name)
+        return message
+                
+
+
 class Business(Base, table = True):
     """Modelo completo de negocio.
     
@@ -133,6 +175,9 @@ class Business(Base, table = True):
         sa_relationship_kwargs={'lazy': 'selectin'},
         )
     shopkeepers: 'Shopkeeper' = Relationship(
+        back_populates = 'business',
+        )
+    records: List['Record'] = Relationship(
         back_populates = 'business',
         )
     image: Optional[str] = Field( nullable = True)
@@ -167,12 +212,12 @@ class Product(Base, table = True):
     business_id: int = Field(nullable = False, foreign_key = 'business.id')
     business: 'Business'  = Relationship(
         back_populates='products',
-        sa_relationship_kwargs={'lazy': 'selectin'},
+        sa_relationship_kwargs={'lazy': 'subquery'},
         )
     order_products: List['OrderProduct'] = Relationship(
         back_populates='product',
         )
-    images: List[str] = Field(sa_type=ARRAY(String))
+    images: List[str] = Field(sa_type=ARRAY(String), default=[])
     
 
 class OrderStatus(Enum):
@@ -206,6 +251,7 @@ class Order(Base, table = True):
     lat: float = Field(nullable = True)
     order_products: List["OrderProduct"] = Relationship(
         back_populates="order",
+        sa_relationship_kwargs={'lazy': 'selectin'},
         )
     customer: 'User' = Relationship(
         back_populates='orders',
@@ -213,11 +259,17 @@ class Order(Base, table = True):
         )
     business: 'Business' = Relationship(
         back_populates="orders",
+        sa_relationship_kwargs={'lazy': 'selectin'},
         )
     status: OrderStatus = Field(default = OrderStatus.EN_ESPERA)
     @property
     def total_price(self) -> float:
+        
         return sum(op.product.price * op.amount for op in self.order_products)
+    
+    @property
+    def products(self) -> list:
+        return [{'amount': orderproduct.amount, 'product': orderproduct.product} for orderproduct in self.order_products]
     
 class OrderProduct(SQLModel, table = True):
     """Modelo completo de relación orden-producto.

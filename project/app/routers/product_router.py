@@ -7,6 +7,8 @@ from ..services.product_service import ProductService
 from ..schemas.product_schema import ProductUpdate
 from ..helpers.security.security_helper import UserSecurityHelper
 from ..models import User
+from ..models import Record
+from ..services.record_service import RecordService
 
 # Aquí instancio el Router de producto para manejar sus respectivas peticiones.
 router = APIRouter(prefix = "/product", tags = ['product'])
@@ -14,7 +16,7 @@ router = APIRouter(prefix = "/product", tags = ['product'])
 @router.get("/")
 async def get_all(
     offset: Annotated[int, Query(title = "The page of product we want to get")] = 0,
-    limit:  Annotated[int, Query(title = "The number of products we want to get per page")] = 10,
+    limit:  Annotated[int, Query(title = "The number of products we want to get per page")] = 30,
     db:Session = Depends(get_db),
     ):
     """Get all: Invoca al servicio para obtener todos los products.
@@ -33,7 +35,7 @@ async def get_all(
 async def get_by_business(
     id: Annotated[int, Path(title="ID of the product we want to find")],
     offset: Annotated[int, Query(title = "The page of product we want to get")] = 0,
-    limit:  Annotated[int, Query(title = "The number of products we want to get per page")] = 10,
+    limit:  Annotated[int, Query(title = "The number of products we want to get per page")] = 30,
     db:Session = Depends(get_db),
     ):
     """Get by business: Invoca al servicio para obtener todos los products según un negocio.
@@ -98,7 +100,13 @@ async def create(
     new_product = await ProductService.create(db, product)
     if not new_product:
         raise HTTPException(status_code = 500, detail = "No se pudo crear producto")
-    return new_product
+    record = Record(
+        business_id=new_product.business_id,
+        user_id=current_user.id,
+        raw_message=f'$uname$ añadió el producto "{new_product.name}" a $bname$',
+    )
+    await RecordService.create(db, record)
+    return new_product.__dict__
 
 @router.put("/{id}")
 async def update(
@@ -156,4 +164,10 @@ async def delete(
     new_product = await ProductService.delete(db, id)
     if not new_product:
         raise HTTPException(status_code = 500, detail = "Couldn't delete product")
+    record = Record(
+        business_id=old_prod.business_id,
+        user_id=current_user.id,
+        raw_message=f'$uname$ eliminó el producto {old_prod.name} de $bname$',
+    )
+    await RecordService.create(db, record)
     return new_product
