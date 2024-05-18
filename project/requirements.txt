@@ -27,6 +27,7 @@ debugpy==1.6.7
 decorator==5.1.1
 ecdsa==0.13
 exceptiongroup==1.2.0
+numpy==1.26.4
 executing==0.8.3
 fastapi==0.110.0
 fiona==1.9.6
@@ -62,7 +63,6 @@ munkres==1.1.4
 nest-asyncio==1.6.0
 networkx==3.1
 numexpr==2.8.7
-numpy==1.26.4
 osmnx==1.9.3
 packaging==23.2
 pandas==2.2.1

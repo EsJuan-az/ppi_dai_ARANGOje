@@ -1,7 +1,7 @@
 # 📗Añadir dependencia y actualizar el requirements.yml
 Tras la actualización de cualquier dependencia en el entorno de conda, ejecutaremos:
 ```bash
-conda env export --no-builds --file project/requirements.yml
+pip list --format=freeze > requirements.txt
 ```
 
 # 🎞️ Migración a base de datos.
