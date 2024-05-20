@@ -11,6 +11,7 @@ router = APIRouter(prefix = "/record", tags = ['record'])
 
 @router.get("/")
 async def get_all(
+    current_user: Annotated[User, Depends(UserSecurityHelper.get_current)],
     offset: Annotated[int, Query(title = "The page of record we want to get")] = 0,
     limit:  Annotated[int, Query(title = "The number of records we want to get per page")] = 30,
     db:Session = Depends(get_db),
@@ -25,5 +26,7 @@ async def get_all(
     Returns:
         dict: Respuesta del servicio.
     """
-    records = await RecordService.get_all(db, offset, limit)
+    records = await RecordService.get_all(db, offset, limit, [
+        Record.user_id == current_user.id,
+    ])
     return [{**record.__dict__, "message": record.message} for record in records]
