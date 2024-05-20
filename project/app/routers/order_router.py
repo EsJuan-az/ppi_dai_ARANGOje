@@ -377,7 +377,7 @@ async def add_product(
     """
     product = await ProductService.get_by_id(db, upserts.product_id)
     order = await OrderService.get_by_id(db, upserts.order_id)
-    isAllowed = current_user.is_associated_with_business(order.business_id)
+    isAllowed = current_user.id == order.customer_id
     if not isAllowed or product.business_id != order.business_id:
         raise HTTPException(status_code = 403, detail = "Credenciales invalidos")
     order_product = await OrderProductService.create(db, upserts)
