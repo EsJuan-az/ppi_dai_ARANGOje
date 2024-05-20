@@ -87,6 +87,11 @@ El propósito de éste proyecto es enriquecer aún más la vida universitaria - 
 Para ver los avances del proyecto puedes pasarte por mi [`TODO.md`](TODO.md)
 
 # 💸 Aprende:
+¿Quieres ejecutar el código? Ejecuta:
+```bash
+pip install --upgrade pip & pip install numpy & pip install -r ./project/requirements.txt
+uvicorn project.app.main:app --host 0.0.0.0 --port 8000 --workers 4
+```
 ¿Quieres ver convenciones para contribuír? Pásate por mi [`HOWTO.md`](HOWTO.md)
 
 ## 🚀 Acerca de mí
