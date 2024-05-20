@@ -111,3 +111,11 @@ Soy - en definitiva - una persona que ama el conocimiento y cree en todo el futu
 </p>
 He tenido la oportunidad de aprender mucho en mi camino, de tal manera que he ahondado bastante en temas como lo es el Desarrollo Web Full Stack - tanto Front-end como Back-end y ETLs (para el tratamiento de datos) y no pretendo dejar de hacerlo nunca.
 
+# Librerías externas.
+Este proyecto fue realizado usando las siguientes herramientas de terceros.
+    - Vite.
+    - React.js.
+    - Lorem Picsum (Imagenes de productos y empresas).
+    - Material UI (Componentes).
+    - Material Icons (Iconos). 
+    - Open Street Map (Mapas de las ordenes).
